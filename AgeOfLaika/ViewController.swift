@@ -24,7 +24,10 @@ class ViewController: UIViewController {
     }
 
     @IBAction func calculateButton(sender: UIButton) {
-        
+        let humanAge = Double((humanAgeTextField.text as NSString).doubleValue)
+        resultLabel.text = "You dog has \(humanAge * 7) years in Dog Years"
+        resultLabel.hidden = false
+        humanAgeTextField.resignFirstResponder()
     }
 
 }
