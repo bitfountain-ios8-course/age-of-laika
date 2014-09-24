@@ -8,26 +8,40 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet weak var humanAgeTextField: UITextField!
     @IBOutlet weak var resultLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        humanAgeTextField.delegate = self
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    }
+    
+    override func touchesBegan(touches: NSSet, withEvent event: UIEvent) {
+        super.touchesBegan(touches, withEvent: event)
+        self.view.endEditing(true)
+    }
+    
+    func textFieldShouldClear(textField: UITextField) -> Bool {
+        resultLabel.hidden = true
+        return true
+    }
+    
+    func textFieldShouldReturn(textField: UITextField!) -> Bool {
+        self.view.endEditing(true)
+        return true;
     }
 
     @IBAction func calculateButton(sender: UIButton) {
         let humanAge = Double((humanAgeTextField.text as NSString).doubleValue)
         resultLabel.text = "You dog has \(humanAge * 7) years in Dog Years"
         resultLabel.hidden = false
-        humanAgeTextField.resignFirstResponder()
+        self.view.endEditing(true)
     }
 
 }
